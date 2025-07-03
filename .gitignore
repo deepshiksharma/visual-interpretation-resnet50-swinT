@@ -1,4 +1,3 @@
 **/__pycache__/
-saved_heatmaps/
 resnet_epoch_25.pth
 swin_epoch_25.pth
