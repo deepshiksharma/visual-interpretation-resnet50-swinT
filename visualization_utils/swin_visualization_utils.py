@@ -109,7 +109,7 @@ def image_w_spatial_attention_progression(input_tensor, attn_dict, cols=3, alpha
     plt.show()
 
 
-def channel_activation_progression(channel_activation_dict, figsize=(14, 2), title_prefix="Stage-Level Channel Focus: "):
+def channel_activation_progression(channel_activation_dict, figsize=(14, 2)):
     # Group activations by stage
     stage_activations = defaultdict(list)
     for name, act in channel_activation_dict.items():
@@ -139,7 +139,7 @@ def channel_activation_progression(channel_activation_dict, figsize=(14, 2), tit
         act = (act - act.min()) / (act.max() - act.min() + 1e-6)
         act = act.flatten().unsqueeze(0)  # ensures shape (1, C)
         ax.imshow(act.numpy(), aspect='auto', cmap='viridis')
-        ax.set_title(f"{title_prefix}{stage}")
+        ax.set_title(stage)
         ax.set_ylabel("Layer")
         ax.set_xticks([])
         ax.set_yticks([])
@@ -149,7 +149,7 @@ def channel_activation_progression(channel_activation_dict, figsize=(14, 2), tit
     plt.show()
 
 
-def attention_matrix_progression(attn_maps, figsize=(16, 4), title_prefix='Mean Attention - '):
+def attention_matrix_progression(attn_maps, figsize=(16, 4)):
     """
     Aggregates attention maps per stage and plots one mean attention map per stage.
     """
@@ -179,7 +179,7 @@ def attention_matrix_progression(attn_maps, figsize=(16, 4), title_prefix='Mean 
             avg_attn = attn_tensor.mean(0).mean(0)  # (N, N)
 
             ax.imshow(normalize_tensor(avg_attn), cmap='viridis')
-            ax.set_title(f"{title_prefix}{stage_name}")
+            ax.set_title(stage_name)
             ax.axis('off')
         except Exception as e:
             ax.set_title(f"Failed: {stage_name}")
