@@ -18,7 +18,7 @@ ResNet-50 and Swin-Tiny were chosen as representative CNN and ViT variants. Both
 | Extracted | Spatial activation maps, channel activation maps | Multi-head self-attention weights, post-MLP token embeddings |
 | Parameters | 23,651,462 (≈23.6 M) | 27,573,184 (≈27.6 M) |
 
-Note: Throughout this repository, as in the paper, any reference to "channel activations" for the Swin Transformer means activations over the **token embedding dimensions** (the analogue of CNN channels).
+> Note: Throughout this repository, as in the paper, any reference to "channel activations" for the Swin Transformer means activations over the **token embedding dimensions** (the analogue of CNN channels).
 
 
 ## Repository structure
@@ -78,37 +78,40 @@ Run `resnet visualized.ipynb` and `swin visualized.ipynb` to generate the figure
 - **Channel activation progression**: mean activations over token embedding dimensions from the MLP outputs of all blocks within each stage, displayed as horizontal heatmaps.
 
 
-### Discussion
+## Discussion
 
-#### Spatial activation and attention
-ResNet's spatial activation visualizations (Fig. 1 and Fig. 2) reveal how convolutional layers extract hierarchical features, beginning with fine-grained textures and edges in early layers and evolving into more abstract, object-centric representations with reduced spatial resolution in deeper layers. Swin's spatial attention maps (Fig. 4 and Fig. 5) highlight the most relevant spatial patches across different stages, showing its self-attention mechanism adaptively weighing the importance of various image regions. Both approaches shift from global context to localized object understanding as depth increases, but the attention maps offer a more direct and interpretable view into where the model is focusing, rather than just what features are being activated.
+### Spatial activation and attention
 
-<br> <p align="center">
+<p align="center">
     <img src="saved_heatmaps/resnet_spatial_activations_w_image.png" width="650"/>
-    <br> <sub> <b>Fig. 2.</b> ResNet-50's spatial activation progression visualized with input image overlay. </sub>
+    <br> <sub> ResNet-50's spatial activation progression visualized with input image overlay. </sub>
 </p> <br>
 
-<br> <p align="center">
+<p align="center">
     <img src="saved_heatmaps/swin_spatial_attentions_w_image.png" width="450"/>
-    <br> <sub> <b>Fig. 5.</b> Swin-Tiny's spatial attention progression visualized with input image overlay. </sub>
+    <br> <sub> Swin-Tiny's spatial attention progression visualized with input image overlay. </sub>
 </p> <br>
 
-The attention matrix heatmaps (Fig. 3) show the evolution of attention across stages. In early stages (`stage_0` and `stage_1`), a strong diagonal indicates that the model primarily attends to nearby tokens within local windows. As the network deepens (`stage_2` and `stage_3`), the patterns become more diverse and less localized, with strong vertical lines signifying an increasing ability to capture global dependencies and attend to distant but relevant image regions.
+ResNet's spatial activation visualizations reveal how convolutional layers extract hierarchical features, beginning with fine-grained textures and edges in early layers and evolving into more abstract, object-centric representations with reduced spatial resolution in deeper layers. Swin's spatial attention maps highlight the most relevant spatial patches across different stages, showing its self-attention mechanism adaptively weighing the importance of various image regions. Both approaches shift from global context to localized object understanding as depth increases, but the attention maps offer a more direct and interpretable view into where the model is focusing, rather than just what features are being activated. <br>
+
 
 <br> <p align="center">
     <img src="saved_heatmaps/swin_attention_matrices.png" width="800"/>
-    <br> <sub> <b>Fig. 3.</b> Progression of attention matrix across major stages in Swin-Tiny. </sub>
+    <br> <sub> Progression of attention matrix across major stages in Swin-Tiny. </sub>
 </p> <br>
 
-#### Channel activation
-Both models show evolving channel activations reflecting their distinct architectural approaches to feature extraction. ResNet-50's channel activations (Fig. 6) demonstrate a progressive refinement of local, hierarchical features. Swin-Tiny's stage-level channel activations (Fig. 7), derived from its token processing and MLP layers, show feature representation evolving from localized patterns in early stages to more integrated, global characteristics through its shifted window attention and hierarchical structure.
+The attention matrix heatmaps show the evolution of attention across stages. In early stages (`stage_0` and `stage_1`), a strong diagonal indicates that the model primarily attends to nearby tokens within local windows. As the network deepens (`stage_2` and `stage_3`), the patterns become more diverse and less localized, with strong vertical lines signifying an increasing ability to capture global dependencies and attend to distant but relevant image regions. <br>
 
-<br> <p align="center">
+### Channel activation
+
+<p align="center">
     <img src="saved_heatmaps/resnet_channel_activations.png" width="750"/>
-    <br> <sub> <b>Fig. 6.</b> Channel activation progression in ResNet-50. </sub>
+    <br> <sub> Channel activation progression in ResNet-50. </sub>
 </p> <br>
 
-<br> <p align="center">
+<p align="center">
     <img src="saved_heatmaps/swin_channel_activations.png" width="750"/>
-    <br> <sub> <b>Fig. 7.</b> Channel activation progression in Swin-Tiny. </sub>
+    <br> <sub> Channel activation progression in Swin-Tiny. </sub>
 </p> <br>
+
+Both models show evolving channel activations reflecting their distinct architectural approaches to feature extraction. ResNet-50's channel activations demonstrate a progressive refinement of local, hierarchical features. Swin-Tiny's stage-level channel activations, derived from its token processing and MLP layers, show feature representation evolving from localized patterns in early stages to more integrated, global characteristics through its shifted window attention and hierarchical structure.
