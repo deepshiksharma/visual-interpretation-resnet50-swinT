@@ -18,26 +18,24 @@ ResNet-50 and Swin-Tiny were chosen as representative CNN and ViT variants. Both
 | Extracted | Spatial activation maps, channel activation maps | Multi-head self-attention weights, post-MLP token embeddings |
 | Parameters | 23,651,462 (≈23.6 M) | 27,573,184 (≈27.6 M) |
 
-> Note: Throughout this repository, as in the paper, any reference to "channel activations" for the Swin Transformer means activations over the **token embedding dimensions** (the analogue of CNN channels).
-
 
 ## Repository structure
 
 ```
 ├── instrumented_models/
-│   ├── resnet_instrumented.py          # ResNet50_InternalRepresentation
-│   └── swin_instrumented.py            # SwinTiny_InternalRepresentation
+│   ├── resnet_instrumented.py  # ResNet50_InternalRepresentation
+│   └── swin_instrumented.py    # SwinTiny_InternalRepresentation
 ├── visualization_utils/
 │   ├── resnet_visualization_utils.py   # spatial / channel progression, heatmap overlay
 │   └── swin_visualization_utils.py     # attention progression, attention matrices, channel progression
 ├── prepare_dataset.ipynb               # bounding-box cropping, 70 family classes, 80-10-10 split
-├── train_resnet-50_swin-tiny_fgvc-aircraft.ipynb   # fine-tuning and test evaluation for both models
-├── resnet visualized.ipynb             # ResNet-50 figures
-├── swin visualized.ipynb               # Swin-Tiny figures
-├── resnet sparsities.ipynb             # ResNet-50 activation sparsity
-├── swin sparsities.ipynb               # Swin-Tiny token and feature sparsity
-├── saved_heatmaps/                     # figures reproduced in the paper
-└── a5-jsw-1_crop.jpg                   # cropped FGVC-Aircraft image used for the qualitative figures
+├── train_resnet-50_swin-tiny_fgvc-aircraft.ipynb       # fine-tuning and test evaluation for both models
+├── resnet visualized.ipynb     # ResNet-50 figures
+├── swin visualized.ipynb       # Swin-Tiny figures
+├── resnet sparsities.ipynb     # ResNet-50 activation sparsity
+├── swin sparsities.ipynb       # Swin-Tiny token and feature sparsity
+├── saved_heatmaps/             # figures reproduced in the paper
+└── a5-jsw-1_crop.jpg           # cropped FGVC-Aircraft image used for the qualitative figures
 ```
 
 
@@ -60,6 +58,8 @@ Hooks on the MLP submodule of each block capture token embeddings after the self
 
 - **Token representations**: output token embeddings stored per block, preserving fine-grained spatial information across all tokens in a window.
 - **Channel focus vectors**: mean activation across all tokens, giving a 1-D vector per sample reflecting average channel-wise activation strength for that block.
+
+> Note: Throughout this repository, as in the paper, any reference to "channel activations" for the Swin Transformer means activations over the **token embedding dimensions** (the analogue of CNN channels).
 
 
 ## Visualization techniques
